@@ -6,7 +6,8 @@ export default function HomePage() {
         <Container
             maxWidth='md'
             sx={{
-                minHeight: 'calc(100vh - 68px)',
+                flex: 1,
+                minHeight: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -20,12 +21,14 @@ export default function HomePage() {
                     maxWidth: 860,
                 }}
             >
-                <Typography variant='h4' fontWeight={700} gutterBottom>
+                <Typography variant='h5' fontWeight={700} gutterBottom>
                     Alex Cocemasov
                 </Typography>
+
                 <Typography variant='h6' color='text.secondary' sx={{ mb: 4 }}>
                     Front-End Developer • Computational Physicist
                 </Typography>
+
                 <LinkOrbit />
             </Box>
         </Container>

@@ -11,7 +11,13 @@ export default function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Box display='flex' flexDirection='column' minHeight='100vh'>
+            <Box
+                display='flex'
+                flexDirection='column'
+                height='100dvh'
+                maxHeight='100dvh'
+                overflow='hidden'
+            >
                 <HomePage />
                 <Footer mode={mode} onChangeMode={setMode} />
             </Box>
