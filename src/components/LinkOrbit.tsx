@@ -104,7 +104,7 @@ const linkButtonSx = {
     textTransform: 'none',
     backdropFilter: 'blur(6px)',
     backgroundColor: 'background.paper',
-    '&.MuiSvgIcon-root': {
+    '& .MuiSvgIcon-root': {
         fontSize: 21,
     },
     '&:hover, &:focus-visible': {
