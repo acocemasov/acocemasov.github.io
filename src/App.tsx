@@ -4,8 +4,19 @@ import { getTheme } from './theme'
 import HomePage from './components/HomePage'
 import Footer from './components/Footer'
 
+const getInitialMode = (): 'light' | 'dark' => {
+    if (
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+        return 'dark'
+    }
+
+    return 'light'
+}
+
 export default function App() {
-    const [mode, setMode] = useState<'light' | 'dark'>('dark')
+    const [mode, setMode] = useState<'light' | 'dark'>(getInitialMode)
     const theme = getTheme(mode)
 
     return (
