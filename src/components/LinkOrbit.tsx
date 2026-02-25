@@ -8,12 +8,16 @@ import {
 } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
 import type { Theme } from '@mui/material/styles'
-import { ORBIT_GEOMETRY, PROFILE_LINKS, type ProfileLinkId } from '../config/profileLinks'
+import {
+    ORBIT_GEOMETRY,
+    PROFILE_LINKS,
+    type ProfileLinkId,
+} from '../config/profileLinks'
 
-const ORBIT_PERIOD_SECONDS = 18
-const ORBIT_SIZE = { xs: 320, sm: 420 }
-const ORBIT_HEIGHT = { xs: 300, sm: 340 }
-const ORBIT_Z_OFFSET = 20
+const ORBIT_PERIOD_SECONDS = 18 // The period of the orbit, in seconds.
+const ORBIT_SIZE = { xs: 320, sm: 420 } // The overall size of the orbit container.
+const ORBIT_HEIGHT = { xs: 300, sm: 340 } // The height of the orbit container.
+const ORBIT_Z_OFFSET = 20 // The z-axis offset for the orbiting links.
 
 const LINK_ICONS: Record<ProfileLinkId, typeof Email> = {
     email: Email,
@@ -23,6 +27,7 @@ const LINK_ICONS: Record<ProfileLinkId, typeof Email> = {
     linkedin: LinkedIn,
 }
 
+/** Camera container with perspective */
 const orbitRootSx = {
     position: 'relative',
     width: '100%',
@@ -35,6 +40,7 @@ const orbitRootSx = {
     isolation: 'isolated',
 }
 
+/** The orbital plane, tilted for 3D effect */
 const orbitSceneSx = {
     position: 'absolute',
     top: '50%',
@@ -46,6 +52,7 @@ const orbitSceneSx = {
     zIndex: 1,
 }
 
+/** The visible track of the orbit */
 const orbitTrackSx = {
     position: 'absolute',
     inset: 0,
@@ -68,6 +75,7 @@ const orbitTrackSx = {
     },
 }
 
+/** The spinning container for the links */
 const orbitSpinSx = {
     position: 'absolute',
     inset: 0,
@@ -83,11 +91,9 @@ const orbitSpinSx = {
             transform: 'rotateZ(360deg)',
         },
     },
-    '@media (prefers-reduced-motion: reduce)': {
-        animation: 'none',
-    },
 }
 
+/** Base styles for the link buttons */
 const linkButtonSx = {
     minWidth: 126,
     px: 2.5,
@@ -98,7 +104,7 @@ const linkButtonSx = {
     textTransform: 'none',
     backdropFilter: 'blur(6px)',
     backgroundColor: 'background.paper',
-    '& .MuiSvgIcon-root': {
+    '&.MuiSvgIcon-root': {
         fontSize: 21,
     },
     '&:hover, &:focus-visible': {
@@ -107,6 +113,10 @@ const linkButtonSx = {
         color: 'primary.contrastText',
         boxShadow: (theme: Theme) =>
             `0 0 0 4px ${theme.palette.primary.main}40`,
+    },
+    '&.Mui-disabled': {
+        opacity: 0.65,
+        cursor: 'not-allowed',
     },
 }
 
@@ -131,6 +141,7 @@ export default function LinkOrbit() {
             >
                 {PROFILE_LINKS.map((link) => {
                     const Icon = LINK_ICONS[link.id]
+                    const isDisabled = Boolean(link.disabled)
 
                     return (
                         <Button
@@ -143,6 +154,7 @@ export default function LinkOrbit() {
                                     ? 'noopener noreferrer'
                                     : undefined
                             }
+                            disabled={isDisabled}
                             variant='outlined'
                             size='large'
                             startIcon={<Icon />}
@@ -164,7 +176,8 @@ export default function LinkOrbit() {
                 <Box sx={orbitSpinSx}>
                     {PROFILE_LINKS.map((link) => {
                         const Icon = LINK_ICONS[link.id]
-                        const counterSpinAnimation = `orbit-counter-spin-${link.id}`
+                        const isDisabled = Boolean(link.disabled)
+                        const counterSpinAnimation = `orbit-counter-spin-${link.id}` // keeps each link user-faced by applying a counter-spin
 
                         return (
                             <Box
@@ -189,6 +202,7 @@ export default function LinkOrbit() {
                                             ? 'noopener noreferrer'
                                             : undefined
                                     }
+                                    disabled={isDisabled}
                                     variant='outlined'
                                     size='large'
                                     startIcon={<Icon />}
@@ -205,11 +219,6 @@ export default function LinkOrbit() {
                                                 to: {
                                                     transform: `rotateZ(-${link.angle + 360}deg) rotateX(-${ORBIT_GEOMETRY.tilt}deg)`,
                                                 },
-                                            },
-                                        '@media (prefers-reduced-motion: reduce)':
-                                            {
-                                                animation: 'none',
-                                                transform: `rotateZ(-${link.angle}deg) rotateX(-${ORBIT_GEOMETRY.tilt}deg)`,
                                             },
                                     }}
                                 >
