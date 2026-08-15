@@ -42,7 +42,7 @@ const BASE_LINKS: Omit<ProfileLink, 'angle'>[] = [
     {
         id: 'github',
         label: 'GitHub',
-        href: 'https://github.com/akocemasov',
+        href: 'https://github.com/acocemasov',
         external: true,
     },
     {
