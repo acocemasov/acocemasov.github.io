@@ -26,7 +26,7 @@ export default function HomePage() {
                 </Typography>
 
                 <Typography variant='h6' color='text.secondary' sx={{ mb: 4 }}>
-                    Front-End Developer • Computational Physicist
+                    Computational Physicist • Software Engineer
                 </Typography>
 
                 <LinkOrbit />
